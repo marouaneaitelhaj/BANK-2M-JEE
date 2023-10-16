@@ -13,7 +13,7 @@
 <body>
 <jsp:include page="../Includes/navbar.jsp" />
 <div class="w-full flex justify-between">
-    <div class="w-12">
+    <div class="w-4/6 mx-5 my-5">
         <nav aria-label="Progress">
             <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
                 <li class="relative md:flex md:flex-1">
@@ -75,9 +75,55 @@
                 </li>
             </ol>
         </nav>
+        <div class="flex items-center w-full flex-col ">
+            <div class="w-2/4 py-5">
+                <label for="project" class="block text-sm font-medium text-gray-700">Mon projet</label>
+                <select id="project" name="location"
+                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                    <option>United States</option>
+                    <option selected>Canada</option>
+                    <option>Mexico</option>
+                </select>
+            </div>
+            <div class="w-2/4 py-5">
+                <label for="suis" class="block text-sm font-medium text-gray-700">Je suis</label>
+                <select id="suis" name="location"
+                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                    <option>United States</option>
+                    <option selected>Canada</option>
+                    <option>Mexico</option>
+                </select>
+            </div>
+            <div class="w-2/4 py-5">
+                <label for="montant" class="block text-sm font-medium text-gray-700">montant</label>
+                <input type="number" id="montant" name="montant"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+                <input type="range" id="montant-range" min="5000" max="600000" step="1000"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+            </div>
+            <div class="w-2/4 py-5">
+                <label for="Duree" class="block text-sm font-medium text-gray-700">Durée</label>
+                <input type="number" id="Duree" name="Duree"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+                <input type="range" min="5000" max="600000" step="1000"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+            </div>
+            <div class="w-2/4 py-5">
+                <label for="mensualites" class="block text-sm font-medium text-gray-700">Mensualites</label>
+                <input type="number" id="mensualites" name="mensualites"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+                <input type="range" min="5000" max="600000" step="1000"
+                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+            </div>
+            <div class="w-2/4 py-5">
+                <button class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                    Continuer
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="w-12">
-        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div class="w-2/6 mx-5 my-5">
+        <div class="border border-gray-200 bg-white px-4 py-5 sm:px-6">
             <h3 class="text-lg font-medium leading-6 text-gray-900">Job Postings</h3>
         </div>
     </div>
