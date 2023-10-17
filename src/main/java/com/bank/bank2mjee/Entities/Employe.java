@@ -1,5 +1,5 @@
 package com.bank.bank2mjee.Entities;
 
 
-public class Employe extends Person{
+public final class Employe extends Person{
 }

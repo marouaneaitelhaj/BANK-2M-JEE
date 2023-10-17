@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClientDao extends CrudRepo<Client, String>{
-
+    Optional<Client> findByName(String name);
 }

@@ -4,16 +4,17 @@ import com.bank.bank2mjee.Dao.DemandeDeCreditDao;
 import com.bank.bank2mjee.Entities.DemandeDeCredit;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
 
     @Override
-    public DemandeDeCredit save(DemandeDeCredit demandeDeCredit) {
+    public Optional<DemandeDeCredit> save(DemandeDeCredit demandeDeCredit) {
         return null;
     }
 
     @Override
-    public DemandeDeCredit update(DemandeDeCredit demandeDeCredit) {
+    public Optional<DemandeDeCredit> update(DemandeDeCredit demandeDeCredit, Integer integer) {
         return null;
     }
 
@@ -23,7 +24,7 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     }
 
     @Override
-    public DemandeDeCredit findOne(Integer integer) {
+    public Optional<DemandeDeCredit> findOne(Integer integer) {
         return null;
     }
 

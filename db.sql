@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS Person
 (
-    id        SERIAL PRIMARY KEY,
     firstName varchar(255),
     lastName  varchar(255),
     birthDate date,
@@ -8,12 +7,12 @@ CREATE TABLE IF NOT EXISTS Person
 );
 CREATE TABLE IF NOT EXISTS Client
 (
-    code    varchar(255) not null unique,
+    code    varchar(255) primary key ,
     address varchar(255)
 ) INHERITS (person);
 CREATE TABLE IF NOT EXISTS Employe
 (
-    matricule       varchar(255) not null unique,
+    matricule       varchar(255) primary key ,
     recruitmentDate date         not null,
     email           varchar(255)
 ) INHERITS (person);
