@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="w-2/5 bg-white mx-5 my-5">
     <nav aria-label="Progress">
         <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
@@ -60,7 +61,7 @@
             </li>
         </ol>
     </nav>
-    <form action="/credit/create/step1" method="" class="flex items-center w-full flex-col ">
+    <form action="/credit/create/step2" method="post" class="flex items-center w-full flex-col ">
         <div class="w-3/4 py-5">
             <label for="project" class="block text-sm font-medium text-gray-700">Mon projet</label>
             <select id="project" name="project"
@@ -87,22 +88,23 @@
         </div>
         <div class="w-3/4 py-2">
             <label for="montant" class="block text-sm font-medium text-gray-700">montant</label>
-            <input value="0" type="number" id="montant" name="montant"
+            <input  value="0" type="number" id="montant" name="montant"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            <input value="0" type="number" id="mensualite" name="mensualite" disabled hidden/>
-            <input value="0" type="number" id="client" name="client" disabled hidden/>
-            <input type="range" value="0" id="montant-range" max="600000" step="1000"
+            <input  type="range" value="0" id="montant-range" max="600000" step="1000"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2  text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
         </div>
         <div class="w-3/4 py-2">
             <label for="duree" class="block text-sm font-medium text-gray-700">Durée</label>
-            <input value="0" type="number" id="duree" name="duree"
+            <input  value="0" type="number" id="duree" name="duree"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            <input type="range" value="0" id="duree-range" min="12" max="120" step="6"
+            <input  type="range" value="0" id="duree-range" min="12" max="120" step="6"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2  text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
         </div>
+        <input  value="0" type="text" id="mensualite" name="mensualite"
+               class="d-none" hidden="hidden"/>
         <div class="w-3/4 py-2">
-            <button onclick="calc()"
+            <button
+                    onclick="calc()"
                     id="subMainForm"
                     class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 Continuer
@@ -125,7 +127,6 @@
     let travailText = document.getElementById("travail-text")
     let montantText = document.getElementById("montant-text")
     let dureeText = document.getElementById("duree-text")
-    let MensualiteText = document.getElementById("Mensualite-text")
     ////////////////////////////
     ///////////////////////////////////
     montantRange.addEventListener("input", function () {
@@ -145,7 +146,10 @@
         const monthlyInterestRate = 0.12 / 12;
         const x = montant.value * monthlyInterestRate;
         const y = Math.pow(1 + monthlyInterestRate, -duree.value);
-        const monthlyPayment = x / (1 - y);
-        mensualite.value = monthlyPayment
+        let monthlyPayment = x / (1 - y);
+        if (isNaN(monthlyPayment)){
+            monthlyPayment = 0;
+        }
+        mensualite.value = monthlyPayment.toFixed(2)
     }
 </script>

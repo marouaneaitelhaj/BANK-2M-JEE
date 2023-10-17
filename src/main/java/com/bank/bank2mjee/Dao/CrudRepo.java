@@ -1,11 +1,12 @@
 package com.bank.bank2mjee.Dao;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudRepo<M, T> {
-    M save(M m);
+    Optional<M> save(M m);
 
-    M update(M m);
+    Optional<M> update(M m);
 
     int delete(T t);
 
