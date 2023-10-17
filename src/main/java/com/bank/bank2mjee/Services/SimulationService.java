@@ -19,6 +19,6 @@ public class SimulationService {
     }
 
     public List<Client> findAllClient() {
-        return clientDao.getAll();
+        return null;
     }
 }

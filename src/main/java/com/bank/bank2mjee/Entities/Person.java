@@ -1,9 +1,9 @@
 package com.bank.bank2mjee.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -11,15 +11,12 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 @Table(name = "Person")
 public abstract class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "firstName")
     private String firstName;
     @Column(name = "lastName")
     private String lastName;
     @Column(name = "birthDate")
-    private String birthDate;
+    private LocalDate birthDate;
     @Column(name = "mobile")
     private String mobile;
 }

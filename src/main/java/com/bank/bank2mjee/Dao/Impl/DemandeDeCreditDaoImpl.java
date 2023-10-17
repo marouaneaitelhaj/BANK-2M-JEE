@@ -39,14 +39,18 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
         return null;
     }
 
+    public Optional<DemandeDeCredit> update(DemandeDeCredit demandeDeCredit, Integer integer) {
+        return null;
+    }
+
     @Override
     public int delete(Integer integer) {
         return 0;
     }
 
     @Override
-    public DemandeDeCredit findOne(Integer integer) {
-        return null;
+    public Optional<DemandeDeCredit> findOne(Integer integer) {
+        return Optional.empty();
     }
 
     @Override

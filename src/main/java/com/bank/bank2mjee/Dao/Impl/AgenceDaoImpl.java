@@ -2,7 +2,6 @@ package com.bank.bank2mjee.Dao.Impl;
 
 import com.bank.bank2mjee.Dao.AgenceDao;
 import com.bank.bank2mjee.Entities.Agence;
-import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Tools.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +18,12 @@ public class AgenceDaoImpl implements AgenceDao {
     }
 
     @Override
+    public Optional<Agence> update(Agence agence, String s) {
+        return Optional.empty();
+    }
+
+
+    @Override
     public Optional<Agence> update(Agence agence) {
         return Optional.empty();
     }
@@ -29,7 +34,7 @@ public class AgenceDaoImpl implements AgenceDao {
     }
 
     @Override
-    public Agence findOne(String s) {
+    public Optional<Agence> findOne(String s) {
         return null;
     }
 
