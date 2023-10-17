@@ -1,130 +1,55 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: MAROUANE
-  Date: 10/16/2023
-  Time: 11:22 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" %>
+<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Simulation</title>
 </head>
 <body>
 <jsp:include page="../Includes/navbar.jsp" />
-<div class="w-full flex justify-between">
-    <div class="w-4/6 mx-5 my-5">
-        <nav aria-label="Progress">
-            <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
-                <li class="relative md:flex md:flex-1">
-                    <!-- Completed Step -->
-                    <a href="#" class="group flex w-full items-center">
-        <span class="flex items-center px-6 py-4 text-sm font-medium">
-          <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
-            <!-- Heroicon name: solid/check -->
-            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                 aria-hidden="true">
-              <path fill-rule="evenodd"
-                    d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
-                    clip-rule="evenodd"/>
-            </svg>
-          </span>
-          <span class="ml-4 text-sm font-medium text-gray-900">Job details</span>
-        </span>
-                    </a>
-
-                    <!-- Arrow separator for lg screens and up -->
-                    <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
-                        <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
-                             preserveAspectRatio="none">
-                            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
-                                  stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                </li>
-
-                <li class="relative md:flex md:flex-1">
-                    <!-- Current Step -->
-                    <a href="#" class="flex items-center px-6 py-4 text-sm font-medium" aria-current="step">
-        <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-indigo-600">
-          <span class="text-indigo-600">02</span>
-        </span>
-                        <span class="ml-4 text-sm font-medium text-indigo-600">Application form</span>
-                    </a>
-
-                    <!-- Arrow separator for lg screens and up -->
-                    <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
-                        <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
-                             preserveAspectRatio="none">
-                            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor"
-                                  stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                </li>
-
-                <li class="relative md:flex md:flex-1">
-                    <!-- Upcoming Step -->
-                    <a href="#" class="group flex items-center">
-        <span class="flex items-center px-6 py-4 text-sm font-medium">
-          <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
-            <span class="text-gray-500 group-hover:text-gray-900">03</span>
-          </span>
-          <span class="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900">Preview</span>
-        </span>
-                    </a>
-                </li>
-            </ol>
-        </nav>
-        <div class="flex items-center w-full flex-col ">
-            <div class="w-2/4 py-5">
-                <label for="project" class="block text-sm font-medium text-gray-700">Mon projet</label>
-                <select id="project" name="location"
-                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                    <option>United States</option>
-                    <option selected>Canada</option>
-                    <option>Mexico</option>
-                </select>
-            </div>
-            <div class="w-2/4 py-5">
-                <label for="suis" class="block text-sm font-medium text-gray-700">Je suis</label>
-                <select id="suis" name="location"
-                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                    <option>United States</option>
-                    <option selected>Canada</option>
-                    <option>Mexico</option>
-                </select>
-            </div>
-            <div class="w-2/4 py-5">
-                <label for="montant" class="block text-sm font-medium text-gray-700">montant</label>
-                <input type="number" id="montant" name="montant"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-                <input type="range" id="montant-range" min="5000" max="600000" step="1000"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            </div>
-            <div class="w-2/4 py-5">
-                <label for="Duree" class="block text-sm font-medium text-gray-700">Durée</label>
-                <input type="number" id="Duree" name="Duree"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-                <input type="range" min="5000" max="600000" step="1000"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            </div>
-            <div class="w-2/4 py-5">
-                <label for="mensualites" class="block text-sm font-medium text-gray-700">Mensualites</label>
-                <input type="number" id="mensualites" name="mensualites"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-                <input type="range" min="5000" max="600000" step="1000"
-                       class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            </div>
-            <div class="w-2/4 py-5">
-                <button class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                    Continuer
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="w-2/6 mx-5 my-5">
-        <div class="border border-gray-200 bg-white px-4 py-5 sm:px-6">
+<div id="steps" class="w-full flex justify-around bg-gray-100">
+    <c:if test="${step=1}">
+        <jsp:include page="step1.jsp"/>
+    </c:if>
+    <c:if test="${step=2}">
+        <jsp:include page="step2.jsp"/>
+    </c:if>
+    <c:if test="${step=3}">
+        <jsp:include page="step3.jsp"/>
+    </c:if>
+    <div class="w-2/6 bg-white mx-5 my-5">
+        <div class="px-5 py-1.5 border-b border border-gray-200 bg-white px-4 py-5 sm:px-6">
             <h3 class="text-lg font-medium leading-6 text-gray-900">Job Postings</h3>
+        </div>
+        <div class="px-5 py-1.5 border-b bg-gray-100 w-full">
+            <h3 class="font-medium">Mon projet</h3>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full">
+            <h3 class="font-bold" id="project-text">
+            </h3>
+        </div>
+        <div class="px-5 py-1.5 border-b bg-gray-100 w-full">
+            <h3 class="font-medium">Détails de mon crédit</h3>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full flex">
+            <h3 class="font-bold w-64">Vous êtes:</h3>
+            <span id="travail-text"></span>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full flex">
+            <h3 class="font-bold w-64">Montant: </h3>
+            <span id="montant-text"></span>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full flex">
+            <h3 class="font-bold w-64">Durée: </h3>
+            <span id="duree-text"></span>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full flex">
+            <h3 class="font-bold w-64">Mensualité: </h3>
+            <span id="Mensualite-text"></span>
+        </div>
+        <div class="px-5 py-1.5 border-b w-full flex">
+            <h3 class="font-bold w-64">Frais de dossier: </h3>
+            <span>2 332,00 DH</span>
         </div>
     </div>
 </div>
