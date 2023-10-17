@@ -15,9 +15,9 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/credit/create", "/credit/update", "/credit/create/step2"})
 public class CreditServlet extends HttpServlet {
-    //AgenceDao agenceDao = new AgenceDaoImpl();
-    //ClientDao clientDao = new ClientDaoImpl();
-    //SimulationService simulationService = new  SimulationService(clientDao);
+    AgenceDao agenceDao = new AgenceDaoImpl();
+    ClientDao clientDao = new ClientDaoImpl();
+    SimulationService simulationService = new  SimulationService(clientDao, agenceDao);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         switch (req.getRequestURI()) {
