@@ -27,6 +27,7 @@ public class CreditServlet extends HttpServlet {
         doGet(req, resp);
     }
     private void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("step", 1);
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req,resp);
     }
 }
