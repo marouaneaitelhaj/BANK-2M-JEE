@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface ClientDao extends CrudRepo<Client, String>{
     Optional<Client> save(Client client);
 
-    Optional<Client> findByName(String name);
+
+    Optional<Client> findByAtr(String text);
 }

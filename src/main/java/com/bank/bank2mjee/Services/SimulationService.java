@@ -18,10 +18,10 @@ public class SimulationService {
     }
 
     public List<Agence> findAllAgence() {
-        return null;
+        return agenceDao.findAll();
     }
 
     public List<Client> findAllClient() {
-        return null;
+        return clientDao.findAll();
     }
 }
