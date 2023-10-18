@@ -27,6 +27,12 @@ public class ClientServlet extends HttpServlet {
             case "/clients":
                 getClients(request, response);
                 break;
+            case "/client":
+                getClients(request, response);
+                break;
+            case "/client1":
+                getClients(request, response);
+                break;
             default:
                 getClients(request, response);
                 break;
@@ -86,6 +92,7 @@ public class ClientServlet extends HttpServlet {
         request.setAttribute("clients", clients);
         request.getRequestDispatcher("/Views/Client/client.jsp").forward(request, response);
     }
+
     private void deleteClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
         Integer res = clientService.deleteClient(code);

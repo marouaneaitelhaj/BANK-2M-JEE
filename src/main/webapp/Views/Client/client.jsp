@@ -6,7 +6,7 @@
 </head>
 <body>
 <jsp:include page="../Includes/navbar.jsp"></jsp:include>
-<div class="px-10 py-10  h-4/5">
+<div class="px-10 py-10 h-4/5">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
             <h1 class="text-xl font-semibold text-gray-900">Users</h1>
@@ -47,8 +47,8 @@
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">${client.address}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <a class="text-indigo-600">|</a>
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"> Delete</a>
+                                    <a class="text-black">|</a>
+                                    <a href="#" class="text-red-400 hover:text-red-700"> Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
