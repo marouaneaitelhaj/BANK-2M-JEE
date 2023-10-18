@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,18 +95,18 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Optional<Client> findByAtr(String text) {
+    public List<Client> findByAtr(String text) {
         try {
             session.beginTransaction();
-            Client client = new Client();
             Query<Client> query = session.createQuery("from Client where firstName like :text OR lastName like :text OR mobile like :text OR code like :text OR address like :text", Client.class);
-            query.setParameter("name", "%" + text + "%");
-            client = query.uniqueResult();
+            query.setParameter("text", "%" + text + "%");
+            List<Client> clients = query.list();
             session.getTransaction().commit();
-            return Optional.of(client);
+            return clients;
         } catch (Exception e) {
             e.printStackTrace();
+            session.getTransaction().rollback();
         }
-        return Optional.empty();
+        return Collections.emptyList();
     }
 }

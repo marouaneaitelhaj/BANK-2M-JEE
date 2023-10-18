@@ -9,5 +9,5 @@ public interface ClientDao extends CrudRepo<Client, String>{
     Optional<Client> save(Client client);
 
 
-    Optional<Client> findByAtr(String text);
+    List<Client> findByAtr(String text);
 }

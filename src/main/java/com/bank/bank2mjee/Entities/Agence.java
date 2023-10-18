@@ -22,4 +22,8 @@ public class Agence {
     private String adresse;
     @Column(name = "numero")
     private String numero;
+
+    public Agence(String code) {
+        this.code = code;
+    }
 }

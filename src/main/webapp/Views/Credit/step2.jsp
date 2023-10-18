@@ -71,26 +71,28 @@
         </ol>
     </nav>
     <div class="flex items-center w-full flex-col ">
-        <div class="w-3/4 py-5">
-            <label for="montant" class="block text-sm font-medium text-gray-700">Search for Client</label>
-            <input type="text" id="montant" name="montant"
+        <form action="/credit/create/step2" method="get" class="w-3/4 py-5">
+            <label for="clientSearch" class="block text-sm font-medium text-gray-700">Search for Client</label>
+            <input type="text" id="clientSearch" name="clientSearch"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-        </div>
-        <div class="w-3/4 py-5">
-            <label for="project" class="block text-sm font-medium text-gray-700">Select Client</label>
-            <select id="project" name="project"
+            <button
+                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                Search
+            </button>
+        </form>
+        <form method="post" action="/credit/create/step3" class="w-3/4 py-1">
+            <label for="client" class="block text-sm font-medium text-gray-700">Select Client</label>
+            <select id="client" name="client"
                     class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <c:forEach items="${clients}" var="client">
                     <option value="${client.code}">${client.lastName}</option>
                 </c:forEach>
             </select>
-        </div>
-        <div class="w-3/4 py-2">
             <button
                     onclick=""
                     class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 Continuer
             </button>
-        </div>
+        </form>
     </div>
 </div>
