@@ -20,7 +20,6 @@ public class ClientDaoImpl implements ClientDao {
             session.beginTransaction();
             session.persist(client);
             session.getTransaction().commit();
-            sessionFactory.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -41,11 +40,9 @@ public class ClientDaoImpl implements ClientDao {
                 updateClient.setBirthDate(client.getBirthDate());
                 session.persist(updateClient);
                 session.getTransaction().commit();
-                sessionFactory.close();
                 return Optional.of(updateClient);
             }else {
                 session.getTransaction().commit();
-                sessionFactory.close();
                 return Optional.empty();
             }
         }catch (Exception e){
@@ -62,7 +59,6 @@ public class ClientDaoImpl implements ClientDao {
             client = session.get(Client.class, code);
             session.remove(client);
             session.getTransaction().commit();
-            sessionFactory.close();
             return 1;
         }catch (Exception e){
             e.printStackTrace();
@@ -76,6 +72,7 @@ public class ClientDaoImpl implements ClientDao {
             session.beginTransaction();
             Client client = new Client();
             client = session.get(Client.class, s);
+            session.getTransaction().commit();
             return Optional.of(client);
         }catch (Exception e){
             e.printStackTrace();
@@ -89,7 +86,6 @@ public class ClientDaoImpl implements ClientDao {
             session.beginTransaction();
             List<Client> clients = session.createQuery("from Client").getResultList();
             session.getTransaction().commit();
-            sessionFactory.close();
             return clients;
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +102,6 @@ public class ClientDaoImpl implements ClientDao {
             query.setParameter("name", "%" + text + "%");
             client = query.uniqueResult();
             session.getTransaction().commit();
-            sessionFactory.close();
             return Optional.of(client);
         } catch (Exception e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public class ClientService {
         return clientDao.findOne(code);
     }
     public Optional<Client> getClientByName(String name) {
-        return clientDao.findByName(name);
+        return clientDao.findByAtr(name);
     }
 
     public List<Client> getClients() {
