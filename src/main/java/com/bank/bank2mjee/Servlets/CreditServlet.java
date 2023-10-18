@@ -4,6 +4,7 @@ import com.bank.bank2mjee.Dao.AgenceDao;
 import com.bank.bank2mjee.Dao.ClientDao;
 import com.bank.bank2mjee.Dao.Impl.AgenceDaoImpl;
 import com.bank.bank2mjee.Dao.Impl.ClientDaoImpl;
+import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Services.SimulationService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/credit/create", "/credit/update", "/credit/create/step2"})
 public class CreditServlet extends HttpServlet {
@@ -43,8 +45,9 @@ public class CreditServlet extends HttpServlet {
     }
 
     private void step2(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //req.setAttribute("agences", simulationService.findAllAgence());
-        //req.setAttribute("clients", simulationService.findAllClient());
+        List<Client> clientList = simulationService.findAllClient();
+        System.out.println("******************************************" + clientList.size() + "******************************************");
+        req.setAttribute("clients", clientList);
         req.setAttribute("step", 2);
         req.setAttribute("project", req.getParameter("project"));
         req.setAttribute("travail", req.getParameter("travail"));

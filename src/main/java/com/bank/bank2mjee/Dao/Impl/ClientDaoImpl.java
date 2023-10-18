@@ -98,12 +98,12 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Optional<Client> findByName(String name) {
+    public Optional<Client> findByAtr(String text) {
         try {
             session.beginTransaction();
             Client client = new Client();
-            Query<Client> query = session.createQuery("from Client where firstName like :name", Client.class);
-            query.setParameter("name", "%" + name + "%");
+            Query<Client> query = session.createQuery("from Client where firstName like :text OR lastName like :text OR mobile like :text OR code like :text OR address like :text", Client.class);
+            query.setParameter("name", "%" + text + "%");
             client = query.uniqueResult();
             session.getTransaction().commit();
             sessionFactory.close();
