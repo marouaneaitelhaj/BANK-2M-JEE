@@ -26,4 +26,8 @@ public final class Client extends Person{
         this.code = code;
         this.address = address;
     }
+
+    public Client(String client) {
+        this.code = client;
+    }
 }
