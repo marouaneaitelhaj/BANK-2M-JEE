@@ -1,24 +1,22 @@
 package com.bank.bank2mjee.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "credit")
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "agence")
 public class Agence {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String code;
-    @Column(name = "nom")
+    @Column(name = "name")
     private String nom;
-    @Column(name = "adresse")
+    @Column(name = "address")
     private String adresse;
     @Column(name = "numero")
     private String numero;
