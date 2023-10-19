@@ -28,10 +28,7 @@ public class ClientServlet extends HttpServlet {
                 getClients(request, response);
                 break;
             case "/client":
-                getClients(request, response);
-                break;
-            case "/client1":
-                getClients(request, response);
+                addClient(request, response);
                 break;
             default:
                 getClients(request, response);
