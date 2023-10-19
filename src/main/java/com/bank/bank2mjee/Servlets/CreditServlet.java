@@ -54,11 +54,10 @@ public class CreditServlet extends HttpServlet {
         DemandeDeCredit credit = new DemandeDeCredit();
         credit.setCreditEtat(CreditEtat.EN_ATTENTE);
         credit.setDate(LocalDate.now());
-        System.out.printf("******************" + session.getAttribute("duree"));
         credit.setDuree(Integer.parseInt(session.getAttribute("duree").toString()));
         credit.setMontant(Double.parseDouble(session.getAttribute("montant").toString()));
-        credit.setClient(new Client(session.getAttribute("client").toString()));
-        credit.setAgence(new Agence("QLKJSyids"));
+        credit.setClient((Client) session.getAttribute("client"));
+        credit.setAgence((Agence) session.getAttribute("agence"));
         credit.setRemarques("lsdkjksljd qslkjdlkqjsd qsdlkqjsdkljqsd qsldkjqlksjd dqlksjdklqsd");
         Optional<DemandeDeCredit> demandeDeCredit = simulationService.addDemande(credit);
     }
@@ -66,14 +65,21 @@ public class CreditServlet extends HttpServlet {
     private void step3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.setAttribute("client", req.getParameter("client"));
+        Agence agence = new Agence();
+        try {
+            agence = simulationService.findOneAgence(req.getParameter("agence"));
+            session.setAttribute("agence", agence);
+        } catch (Exception ignored) {
+
+        }
         req.setAttribute("step", 3);
-        Client client = new Client();
+        Client client = new Client(req.getParameter("client"));
         try {
             client = simulationService.findOne(req.getParameter("client"));
         } catch (Exception e) {
 
         }
-        System.out.printf(client.getFirstName());
+        session.setAttribute("client", client);
         req.setAttribute("client", client);
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
     }
@@ -105,7 +111,14 @@ public class CreditServlet extends HttpServlet {
         } else {
             clientList = simulationService.findAllClient();
         }
+        List<Agence> agenceList;
+        if (req.getParameter("agenceSearch") != null) {
+            agenceList = simulationService.findAllAgenceByText(req.getParameter("clientSearch"));
+        } else {
+            agenceList = simulationService.findAllAgence();
+        }
         req.setAttribute("clients", clientList);
+        req.setAttribute("agences", agenceList);
         req.setAttribute("step", 2);
         session.setAttribute("project", project);
         session.setAttribute("travail", travail);

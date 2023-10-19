@@ -54,14 +54,23 @@ public class AgenceDaoImpl implements AgenceDao {
 
     @Override
     public Optional<Agence> findOne(String s) {
-        return null;
+        try {
+            session.beginTransaction();
+            Agence agence = new Agence();
+            agence = session.get(Agence.class, s);
+            session.getTransaction().commit();
+            return Optional.of(agence);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     @Override
     public List<Agence> findAll() {
         try {
             session.beginTransaction();
-            List<Agence> agences = session.createQuery("from Client").getResultList();
+            List<Agence> agences = session.createQuery("from Agence").getResultList();
             session.getTransaction().commit();
             return agences;
         } catch (Exception e) {

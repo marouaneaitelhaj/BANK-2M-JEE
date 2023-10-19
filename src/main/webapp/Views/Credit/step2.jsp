@@ -71,7 +71,7 @@
         </ol>
     </nav>
     <div class="flex items-center w-full flex-col ">
-        <form action="/credit/create/step2" method="get" class="w-3/4 py-5">
+        <form action="/credit/create/step2" method="get" class="w-3/4 pt-5">
             <label for="clientSearch" class="block text-sm font-medium text-gray-700">Search for Client</label>
             <input type="text" id="clientSearch" name="clientSearch"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
@@ -80,12 +80,30 @@
                 Search
             </button>
         </form>
-        <form method="post" action="/credit/create/step3" class="w-3/4 py-1">
+        <div class="w-3/4 py-1">
             <label for="client" class="block text-sm font-medium text-gray-700">Select Client</label>
-            <select id="client" name="client"
+            <select id="client" name="client" form="myform"
                     class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <c:forEach items="${clients}" var="client">
                     <option value="${client.code}">${client.lastName}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <form action="/credit/create/step2" method="get" class="w-3/4 pt-5">
+            <label for="agenceSearch" class="block text-sm font-medium text-gray-700">Search for Agence</label>
+            <input type="text" id="agenceSearch" name="agenceSearch"
+                   class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
+            <button
+                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                Search
+            </button>
+        </form>
+        <form method="post" action="/credit/create/step3" id="myform" class="w-3/4 py-1">
+            <label for="agence" class="block text-sm font-medium text-gray-700">Select Agence</label>
+            <select id="agence" name="agence"
+                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                <c:forEach items="${agences}" var="agence">
+                    <option value="${agence.code}">${agence.nom}</option>
                 </c:forEach>
             </select>
             <button

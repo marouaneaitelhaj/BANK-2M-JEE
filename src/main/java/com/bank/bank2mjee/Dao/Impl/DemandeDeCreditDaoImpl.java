@@ -16,6 +16,7 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     public Optional<DemandeDeCredit> save(DemandeDeCredit demandeDeCredit) {
         try {
             session.beginTransaction();
+            System.out.println(demandeDeCredit);
             session.persist(demandeDeCredit);
             session.getTransaction().commit();
             return Optional.ofNullable(demandeDeCredit);

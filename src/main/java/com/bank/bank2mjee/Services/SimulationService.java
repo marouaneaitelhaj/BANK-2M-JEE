@@ -25,6 +25,14 @@ public class SimulationService {
         return demandeDeCreditDao.save(demandeDeCredit);
     }
 
+    public Agence findOneAgence(String code) throws Exception {
+        Optional<Agence> agenceOptional = agenceDao.findOne(code);
+        if (agenceOptional.isPresent()) {
+            return agenceOptional.get();
+        }
+        throw new Exception("Agence not found");
+    }
+
     public List<Agence> findAllAgence() {
         return agenceDao.findAll();
     }
