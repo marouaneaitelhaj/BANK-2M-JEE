@@ -9,20 +9,26 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@Entity
-@Table(name = "credit")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "credit")
 public class DemandeDeCredit {
     @Id
-    private Long numero;
-    @ManyToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long number;
+    @OneToOne
     private Client client;
     @ManyToOne
     private Agence agence;
+    @Column(name = "date")
     private LocalDate date;
+    @Column(name = "montant")
     private Double montant;
+    @Column(name = "duree")
     private int duree;
+    @Column(name = "remarques")
     private String remarques;
+    @Column(name = "creditEtat")
     private CreditEtat creditEtat;
 }

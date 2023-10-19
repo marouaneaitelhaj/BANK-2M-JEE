@@ -28,7 +28,7 @@ public class ClientService {
     public Optional<Client> getClient(String code) {
         return clientDao.findOne(code);
     }
-    public Optional<Client> getClientByName(String name) {
+    public List<Client> getClientByName(String name) {
         return clientDao.findByAtr(name);
     }
 
