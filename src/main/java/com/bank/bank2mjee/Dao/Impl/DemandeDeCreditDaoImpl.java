@@ -16,7 +16,6 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     public Optional<DemandeDeCredit> save(DemandeDeCredit demandeDeCredit) {
         try {
             session.beginTransaction();
-            System.out.println(demandeDeCredit);
             session.persist(demandeDeCredit);
             session.getTransaction().commit();
             return Optional.ofNullable(demandeDeCredit);
@@ -30,8 +29,9 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     public Optional<DemandeDeCredit> update(DemandeDeCredit demandeDeCredit) {
         try {
             session.beginTransaction();
-            DemandeDeCredit credit = session.find(DemandeDeCredit.class, demandeDeCredit);
-
+            DemandeDeCredit credit = session.find(DemandeDeCredit.class, demandeDeCredit.getNumber());
+            credit.setCreditEtat(demandeDeCredit.getCreditEtat());
+            session.merge(credit);
             session.getTransaction().commit();
             return Optional.ofNullable(demandeDeCredit);
         } catch (Exception e) {
@@ -56,6 +56,14 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
 
     @Override
     public List<DemandeDeCredit> findAll() {
+        try {
+            session.beginTransaction();
+            List<DemandeDeCredit> demandedecredit = session.createQuery("from DemandeDeCredit ").getResultList();
+            session.getTransaction().commit();
+            return demandedecredit;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

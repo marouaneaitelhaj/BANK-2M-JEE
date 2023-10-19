@@ -32,5 +32,6 @@ CREATE TABLE IF NOT EXISTS Credit
     date      VARCHAR(255),
     montant   double precision,
     duree     double precision,
-    remarques VARCHAR(255)
+    remarques VARCHAR(255),
+    creditEtat VARCHAR(255)
 );

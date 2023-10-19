@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = {"/credit/create", "/credit/update", "/credit/create/step2", "/credit/create/step3", "/credit/create/finish"})
+@WebServlet(urlPatterns = {"/credit/list", "/credit/create", "/credit/update", "/credit/create/step2", "/credit/create/step3", "/credit/create/finish"})
 public class CreditServlet extends HttpServlet {
     AgenceDao agenceDao = new AgenceDaoImpl();
     ClientDao clientDao = new ClientDaoImpl();
@@ -44,9 +44,31 @@ public class CreditServlet extends HttpServlet {
             case "/credit/create/finish":
                 this.addDemande(req, resp);
                 break;
+            case "/credit/list":
+                this.listCredit(req, resp);
+                break;
             case "/credit/update":
+                this.updateEtat(req, resp);
                 break;
         }
+    }
+
+    private void updateEtat(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println(req.getParameter("creditEtat"));
+        simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
+            try {
+                resp.sendRedirect("/credit/list");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void listCredit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<DemandeDeCredit> demandeDeCredits = simulationService.findAll();
+        req.setAttribute("listCredit", demandeDeCredits);
+        req.setAttribute("CreditEtat", CreditEtat.values());
+        req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
     }
 
     private void addDemande(HttpServletRequest req, HttpServletResponse resp) {
