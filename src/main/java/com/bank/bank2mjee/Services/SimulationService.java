@@ -6,6 +6,7 @@ import com.bank.bank2mjee.Dao.DemandeDeCreditDao;
 import com.bank.bank2mjee.Entities.Agence;
 import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Entities.DemandeDeCredit;
+import com.bank.bank2mjee.Enums.CreditEtat;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +57,20 @@ public class SimulationService {
         }else {
             throw new Exception("Client not found");
         }
+    }
+
+    public List<DemandeDeCredit> findAll(String filter) {
+        if (filter == null) {
+        return demandeDeCreditDao.findAll();
+        } else {
+            return demandeDeCreditDao.findAll(filter);
+        }
+    }
+
+    public Optional<DemandeDeCredit> updateEtat(String creditEtat, String creditNumber) {
+        DemandeDeCredit demandeDeCredit = new DemandeDeCredit();
+        demandeDeCredit.setNumber(Long.valueOf(creditNumber));
+        demandeDeCredit.setCreditEtat(CreditEtat.valueOf(creditEtat));
+        return demandeDeCreditDao.update(demandeDeCredit);
     }
 }
