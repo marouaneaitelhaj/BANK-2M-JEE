@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS Credit
     client    VARCHAR(255),
     agence    VARCHAR(255),
     date      VARCHAR(255),
+    dateUpdate      VARCHAR(255),
     montant   double precision,
     duree     double precision,
-    remarques VARCHAR(255)
+    remarques VARCHAR(255),
+    creditEtat VARCHAR(255)
 );

@@ -5,7 +5,9 @@ import com.bank.bank2mjee.Entities.DemandeDeCredit;
 import com.bank.bank2mjee.Tools.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +18,6 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     public Optional<DemandeDeCredit> save(DemandeDeCredit demandeDeCredit) {
         try {
             session.beginTransaction();
-            System.out.println(demandeDeCredit);
             session.persist(demandeDeCredit);
             session.getTransaction().commit();
             return Optional.ofNullable(demandeDeCredit);
@@ -30,8 +31,10 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     public Optional<DemandeDeCredit> update(DemandeDeCredit demandeDeCredit) {
         try {
             session.beginTransaction();
-            DemandeDeCredit credit = session.find(DemandeDeCredit.class, demandeDeCredit);
-
+            DemandeDeCredit credit = session.find(DemandeDeCredit.class, demandeDeCredit.getNumber());
+            credit.setCreditEtat(demandeDeCredit.getCreditEtat());
+            credit.setDateUpdate(LocalDate.now());
+            session.merge(credit);
             session.getTransaction().commit();
             return Optional.ofNullable(demandeDeCredit);
         } catch (Exception e) {
@@ -39,6 +42,7 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
         }
         return null;
     }
+
 
     public Optional<DemandeDeCredit> update(DemandeDeCredit demandeDeCredit, Integer integer) {
         return null;
@@ -55,7 +59,34 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
     }
 
     @Override
+    public List<DemandeDeCredit> findAll(String filter) {
+        try {
+            Query<DemandeDeCredit> query;
+            session.beginTransaction();
+            if (filter == "date") {
+                query = session.createQuery("from DemandeDeCredit order by date", DemandeDeCredit.class);
+            } else {
+                query = session.createQuery("from DemandeDeCredit order by creditEtat", DemandeDeCredit.class);
+            }
+            List<DemandeDeCredit> demandeDeCredits = query.list();
+            session.getTransaction().commit();
+            return demandeDeCredits;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<DemandeDeCredit> findAll() {
+        try {
+            session.beginTransaction();
+            List<DemandeDeCredit> demandedecredit = session.createQuery("from DemandeDeCredit ").getResultList();
+            session.getTransaction().commit();
+            return demandedecredit;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
