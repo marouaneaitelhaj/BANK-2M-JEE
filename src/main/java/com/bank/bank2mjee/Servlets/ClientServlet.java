@@ -28,7 +28,7 @@ public class ClientServlet extends HttpServlet {
                 getClients(request, response);
                 break;
             case "/client":
-                addClient(request, response);
+                getClients(request, response);
                 break;
             default:
                 getClients(request, response);
@@ -67,13 +67,16 @@ public class ClientServlet extends HttpServlet {
         Client client = new Client(firstName, lastName, birthDate, mobile, code, address);
         Optional<Client> optionalClient = clientService.addClient(client);
         String message = null;
+        String type = null;
         if (optionalClient.isPresent()) {
-            message = "Client Inserted Successfuly";
+            message = "Successfuly Inserted";
+            type = "green";
         } else {
-            message = "Client Not Inserted";
+            message = "Not Inserted";
+            type = "red";
         }
         request.setAttribute("message", message);
-        getClients(request, response);
+        response.sendRedirect("/clients");
     }
 
     protected void getClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,13 +97,16 @@ public class ClientServlet extends HttpServlet {
         String code = request.getParameter("code");
         Integer res = clientService.deleteClient(code);
         String message = null;
+        String type = null;
         if (res != 0) {
-            message = "Client Deleted Successfuly";
+            message = "Successfuly Deleted";
+            type = "green";
         } else {
-            message = "Client Not Deleted";
+            message = "Not Deleted";
+            type = "red";
         }
         request.setAttribute("message", message);
-        getClients(request, response);
+        response.sendRedirect("/clients");
     }
 
     private void updateClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -113,13 +119,18 @@ public class ClientServlet extends HttpServlet {
         Client client = new Client(firstName, lastName, birthDate, mobile, code, address);
         Optional<Client> optionalClient = clientService.updateClient(client, code);
         String message = null;
+        String type = null;
         if (optionalClient.isPresent()) {
-            message = "Client Updated Successfuly";
+            message = "Successfuly Updated";
+            type = "green";
         } else {
-            message = "Client Not Updated ";
+            message = "Not Updated";
+            type = "red";
         }
         request.setAttribute("message", message);
+        request.setAttribute("type", type);
         getClients(request, response);
+//        response.sendRedirect("/clients");
     }
 
 }

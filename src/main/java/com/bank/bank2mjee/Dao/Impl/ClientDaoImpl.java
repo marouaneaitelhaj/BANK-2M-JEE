@@ -21,6 +21,7 @@ public class ClientDaoImpl implements ClientDao {
             session.beginTransaction();
             session.persist(client);
             session.getTransaction().commit();
+            return Optional.of(client);
         }catch (Exception e){
             e.printStackTrace();
         }
