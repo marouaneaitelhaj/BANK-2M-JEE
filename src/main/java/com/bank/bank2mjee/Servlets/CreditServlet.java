@@ -56,6 +56,7 @@ public class CreditServlet extends HttpServlet {
     private void updateEtat(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println(req.getParameter("creditEtat"));
         simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
+            req.setAttribute("successMessage", "La demande de credit de " + demandeDeCredit.getClient().getFirstName() +" "+ demandeDeCredit.getClient().getLastName() + "est mettre a jour");
             try {
                 resp.sendRedirect("/credit/list");
             } catch (IOException e) {
@@ -65,9 +66,17 @@ public class CreditServlet extends HttpServlet {
     }
 
     private void listCredit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<DemandeDeCredit> demandeDeCredits = simulationService.findAll();
+        String successMessage = (String) req.getAttribute("successMessage");
+        String filter = null;
+        if (req.getParameter("filter") != null){
+            filter = req.getParameter("filter");
+        }
+        List<DemandeDeCredit> demandeDeCredits = simulationService.findAll(filter);
         req.setAttribute("listCredit", demandeDeCredits);
         req.setAttribute("CreditEtat", CreditEtat.values());
+        if (successMessage!=null){
+            req.setAttribute("successMessage", successMessage);
+        }
         req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
     }
 
@@ -82,6 +91,15 @@ public class CreditServlet extends HttpServlet {
         credit.setAgence((Agence) session.getAttribute("agence"));
         credit.setRemarques("lsdkjksljd qslkjdlkqjsd qsdlkqjsdkljqsd qsldkjqlksjd dqlksjdklqsd");
         Optional<DemandeDeCredit> demandeDeCredit = simulationService.addDemande(credit);
+        demandeDeCredit.ifPresent(demandeDeCredit1 -> {
+            req.setAttribute("successMessage", "La demande de credit de " + demandeDeCredit1.getClient().getFirstName() +" "+ demandeDeCredit1.getClient().getLastName() + "est ajoute");
+            try {
+                resp.sendRedirect("/credit/list");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
     }
 
     private void step3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

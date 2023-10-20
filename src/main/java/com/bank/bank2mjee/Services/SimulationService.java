@@ -59,15 +59,18 @@ public class SimulationService {
         }
     }
 
-    public List<DemandeDeCredit> findAll() {
+    public List<DemandeDeCredit> findAll(String filter) {
+        if (filter == null) {
         return demandeDeCreditDao.findAll();
+        } else {
+            return demandeDeCreditDao.findAll(filter);
+        }
     }
 
     public Optional<DemandeDeCredit> updateEtat(String creditEtat, String creditNumber) {
         DemandeDeCredit demandeDeCredit = new DemandeDeCredit();
         demandeDeCredit.setNumber(Long.valueOf(creditNumber));
         demandeDeCredit.setCreditEtat(CreditEtat.valueOf(creditEtat));
-        System.out.println(creditNumber +"*********************" + creditEtat);
         return demandeDeCreditDao.update(demandeDeCredit);
     }
 }

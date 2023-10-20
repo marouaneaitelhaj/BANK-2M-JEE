@@ -30,6 +30,9 @@ public class DemandeDeCredit {
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "dateUpdate")
+    private LocalDate dateUpdate;
+
     @Column(name = "montant")
     private Double montant;
 
