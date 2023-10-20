@@ -5,6 +5,7 @@ import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Tools.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.query.Query;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
     SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-//    SessionFactory sessionFactory = ;
+//    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();;
     Session session = sessionFactory.openSession();
 
     @Override
