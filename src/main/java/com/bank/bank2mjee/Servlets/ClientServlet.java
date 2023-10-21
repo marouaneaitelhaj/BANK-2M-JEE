@@ -93,6 +93,7 @@ public class ClientServlet extends HttpServlet {
     protected void getClients(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Client> clients = clientService.getClients();
         request.setAttribute("clients", clients);
+        request.setAttribute("clientsCurrent", true);
         request.getRequestDispatcher("/Views/Client/client.jsp").forward(request, response);
     }
 
