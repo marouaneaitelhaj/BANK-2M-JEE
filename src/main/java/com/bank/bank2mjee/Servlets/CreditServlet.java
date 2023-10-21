@@ -33,7 +33,7 @@ public class CreditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         switch (req.getRequestURI()) {
             case "/credit/create":
-                this.create(req,resp);
+                this.step1(req, resp);
                 break;
             case "/credit/create/step2":
                 this.step2(req, resp);
@@ -53,34 +53,16 @@ public class CreditServlet extends HttpServlet {
         }
     }
 
-    private void updateEtat(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println(req.getParameter("creditEtat"));
-        simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
-            req.setAttribute("successMessage", "La demande de credit de " + demandeDeCredit.getClient().getFirstName() +" "+ demandeDeCredit.getClient().getLastName() + "est mettre a jour");
-            try {
-                resp.sendRedirect("/credit/list");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 
-    private void listCredit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String successMessage = (String) req.getAttribute("successMessage");
-        String filter = null;
-        if (req.getParameter("filter") != null){
-            filter = req.getParameter("filter");
-        }
-        List<DemandeDeCredit> demandeDeCredits = simulationService.findAll(filter);
-        req.setAttribute("listCredit", demandeDeCredits);
-        req.setAttribute("CreditEtat", CreditEtat.values());
-        if (successMessage!=null){
-            req.setAttribute("successMessage", successMessage);
-        }
-        req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
-    }
 
-    private void addDemande(HttpServletRequest req, HttpServletResponse resp) {
+    //////////////////////////// methods /////////////////
+    private void addDemande(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String type = null;
+        String message = null;
         HttpSession session = req.getSession();
         DemandeDeCredit credit = new DemandeDeCredit();
         credit.setCreditEtat(CreditEtat.EN_ATTENTE);
@@ -91,49 +73,52 @@ public class CreditServlet extends HttpServlet {
         credit.setAgence((Agence) session.getAttribute("agence"));
         credit.setRemarques("lsdkjksljd qslkjdlkqjsd qsdlkqjsdkljqsd qsldkjqlksjd dqlksjdklqsd");
         Optional<DemandeDeCredit> demandeDeCredit = simulationService.addDemande(credit);
-        demandeDeCredit.ifPresent(demandeDeCredit1 -> {
-            req.setAttribute("successMessage", "La demande de credit de " + demandeDeCredit1.getClient().getFirstName() +" "+ demandeDeCredit1.getClient().getLastName() + "est ajoute");
+        if (demandeDeCredit.isPresent()) {
+            message = "La demande de credit de " + demandeDeCredit.get().getClient().getFirstName() + " " + demandeDeCredit.get().getClient().getLastName() + "est ajoute";
+            type = "green";
+            session.setAttribute("message", message);
+            session.setAttribute("type", type);
+            resp.sendRedirect("/credit/list");
+        } else {
+            message = "La demande  n'est pas ajoute";
+            type = "red";
+            resp.sendRedirect("/credit/create");
+        }
+    }
+    private void updateEtat(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+
+        simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
+            session.setAttribute("message", "La demande de credit est mettre a jour");
+            session.setAttribute("type", "green");
             try {
                 resp.sendRedirect("/credit/list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         });
     }
-
-    private void step3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void listCredit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("client", req.getParameter("client"));
-        Agence agence = new Agence();
-        try {
-            agence = simulationService.findOneAgence(req.getParameter("agence"));
-            session.setAttribute("agence", agence);
-        } catch (Exception ignored) {
-
+        String message = (session.getAttribute("message") != null) ? (String) session.getAttribute("message") : null;
+        String type = (session.getAttribute("type") != null) ? (String) session.getAttribute("type") : null;
+        String filter = (req.getParameter("filter") != null) ? req.getParameter("filter") : null;
+        List<DemandeDeCredit> demandeDeCredits = simulationService.findAll(filter);
+        System.out.println(message);
+        session.setAttribute("message", message);
+        session.setAttribute("type", type);
+        req.setAttribute("listCredit", demandeDeCredits);
+        req.setAttribute("CreditEtat", CreditEtat.values());
+        if (message != null) {
+            session.setAttribute("message", message);
         }
-        req.setAttribute("step", 3);
-        Client client = new Client(req.getParameter("client"));
-        try {
-            client = simulationService.findOne(req.getParameter("client"));
-        } catch (Exception e) {
-
-        }
-        session.setAttribute("client", client);
-        req.setAttribute("client", client);
-        req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
     }
 
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
-    private void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void step1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("step", 1);
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req,resp);
     }
-
     private void step2(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String mensualite = (req.getParameter("mensualite") != null) ? req.getParameter("mensualite") : session.getAttribute("mensualite").toString();
@@ -168,4 +153,25 @@ public class CreditServlet extends HttpServlet {
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
     }
 
+    private void step3(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("client", req.getParameter("client"));
+        Agence agence = new Agence();
+        try {
+            agence = simulationService.findOneAgence(req.getParameter("agence"));
+            session.setAttribute("agence", agence);
+        } catch (Exception ignored) {
+
+        }
+        req.setAttribute("step", 3);
+        Client client = new Client(req.getParameter("client"));
+        try {
+            client = simulationService.findOne(req.getParameter("client"));
+        } catch (Exception e) {
+
+        }
+        session.setAttribute("client", client);
+        req.setAttribute("client", client);
+        req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
+    }
 }
