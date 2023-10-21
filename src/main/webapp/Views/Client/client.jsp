@@ -4,7 +4,7 @@
 <head>
     <title>Clients</title>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 <jsp:include page="../Includes/navbar.jsp"></jsp:include>
 <c:if test="${not empty message}">
 <jsp:include page="../Includes/alert.jsp"></jsp:include>
