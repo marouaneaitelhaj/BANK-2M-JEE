@@ -6,21 +6,23 @@
 <c:forEach items="${listCredit}" var="credit">
     <form action="/credit/update" id="updateform${credit.number}" method="post" hidden="hidden"></form>
 </c:forEach>
-<div class="px-4 sm:px-6 lg:px-8">
+<c:if test="${not empty message}">
+    <jsp:include page="../Includes/alert.jsp"></jsp:include>
+</c:if>
+<div class="px-4 pt-5 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-gray-900">Users</h1>
-            <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title,
-                email and role.</p>
+            <h1 class="text-xl font-semibold text-gray-900">Demande de credit List</h1>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <button type="button"
+            <a
+                    href="/credit/create"
                     class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                Add user
-            </button>
+                Add Simulation
+            </a>
         </div>
     </div>
-    <div class="mt-8 flex flex-col">
+    <div class="mt-8 flex flex-col min-h-full">
         <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
