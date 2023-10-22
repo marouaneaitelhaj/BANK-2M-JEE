@@ -7,7 +7,7 @@
     <title>Simulation</title>
 
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 <jsp:include page="../Includes/navbar.jsp" />
 <div id="steps" class="w-full flex justify-around bg-gray-100">
     <c:if test="${step eq 1}">

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDeleteForm = document.getElementById('closeDeleteForm');
     const updateOverlay = document.getElementById('updateOverlay');
     const closeUpdateForm = document.getElementById('closeUpdateForm');
+    const alert = document.getElementById('alert');
+    const closeAlert = document.getElementById('closeAlert');
 
     openAddForm.addEventListener('click', function (){
         addForm.classList.remove('hidden');
@@ -36,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
     closeUpdateForm.addEventListener('click', function (){
         document.getElementById('updateForm').classList.add('hidden');
     });
+    if (alert) {
+        setTimeout(function () {
+            alert.style.display = 'none';
+        }, 4000);
+    closeAlert.addEventListener('click', function () {
+        alert.classList.add('hidden');
+    });
+    }
 });
 function populateDelete(code) {
     const deleteForm = document.getElementById('deleteForm');

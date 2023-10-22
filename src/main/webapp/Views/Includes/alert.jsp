@@ -1,4 +1,4 @@
-<div class="rounded-md bg-${type}-200 p-4">
+<div class="rounded-md bg-${type}-200 p-4" id="alert">
     <div class="flex">
         <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -11,7 +11,7 @@
         </div>
         <div class="ml-auto pl-3">
             <div class="-mx-1.5 -my-1.5">
-                <button type="button" class="inline-flex rounded-md bg-${type}-50 p-1.5 text-${type}-500 hover:bg-${type}-100 focus:outline-none focus:ring-2 focus:ring-${type}-600 focus:ring-offset-2 focus:ring-offset-${type}-50">
+                <button type="button" id="closeAlert" class="inline-flex rounded-md bg-${type}-50 p-1.5 text-${type}-500 hover:bg-${type}-100 focus:outline-none focus:ring-2 focus:ring-${type}-600 focus:ring-offset-2 focus:ring-offset-${type}-50">
                     <span class="sr-only">Dismiss</span>
                     <!-- Heroicon name: mini/x-mark -->
                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

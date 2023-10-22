@@ -75,7 +75,10 @@ public class ClientServlet extends HttpServlet {
             message = "Not Inserted";
             type = "red";
         }
-        request.setAttribute("message", message);
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        session.setAttribute("type", type);
+        session.setMaxInactiveInterval(1);
         response.sendRedirect("/clients");
     }
 
@@ -105,7 +108,10 @@ public class ClientServlet extends HttpServlet {
             message = "Not Deleted";
             type = "red";
         }
-        request.setAttribute("message", message);
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        session.setAttribute("type", type);
+        session.setMaxInactiveInterval(1);
         response.sendRedirect("/clients");
     }
 
@@ -127,10 +133,11 @@ public class ClientServlet extends HttpServlet {
             message = "Not Updated";
             type = "red";
         }
-        request.setAttribute("message", message);
-        request.setAttribute("type", type);
-        getClients(request, response);
-//        response.sendRedirect("/clients");
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        session.setAttribute("type", type);
+        session.setMaxInactiveInterval(1);
+        response.sendRedirect("/clients");
     }
 
 }
