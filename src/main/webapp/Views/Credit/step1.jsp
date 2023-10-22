@@ -88,16 +88,16 @@
         </div>
         <div class="w-3/4 py-2">
             <label for="montant" class="block text-sm font-medium text-gray-700">montant</label>
-            <input  value="0" type="number" id="montant" name="montant"
+            <input value="5000" min="5000" type="number" id="montant" name="montant"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            <input  type="range" value="0" id="montant-range" max="600000" step="1000"
+            <input type="range" value="5000" id="montant-range" max="600000" step="1000" min="5000"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2  text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
         </div>
         <div class="w-3/4 py-2">
             <label for="duree" class="block text-sm font-medium text-gray-700">Durée</label>
-            <input  value="0" type="number" id="duree" name="duree"
+            <input value="12" min="12" type="number" id="duree" name="duree"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            <input  type="range" value="0" id="duree-range" min="12" max="120" step="6"
+            <input type="range" value="12" id="duree-range" min="12" max="120" step="6"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2  text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
         </div>
         <input  value="0" type="text" id="mensualite" name="mensualite"
@@ -125,21 +125,27 @@
     /////////////////////////
     let projectText = document.getElementById("project-text")
     let travailText = document.getElementById("travail-text")
-    let montantText = document.getElementById("montant-text")
-    let dureeText = document.getElementById("duree-text")
     ////////////////////////////
     ///////////////////////////////////
     montantRange.addEventListener("input", function () {
         montant.value = montantRange.value;
+        document.querySelector("#montant-text").textContent = montantRange.value + " DH"
+        calc()
     });
     dureeRange.addEventListener("input", function () {
         duree.value = dureeRange.value;
+        document.querySelector("#duree-text").textContent = dureeRange.value + " MOIS"
+        calc()
     });
     montant.addEventListener("input", function () {
         montantRange.value = montant.value;
+        document.querySelector("#montant-text").textContent = montant.value + " DH"
+        calc()
     });
     duree.addEventListener("input", function () {
         dureeRange.value = duree.value;
+        document.querySelector("#duree-text").textContent = duree.value + " MOIS"
+        calc()
     });
 
     function calc() {
@@ -151,5 +157,6 @@
             monthlyPayment = 0;
         }
         mensualite.value = monthlyPayment.toFixed(2)
+        document.querySelector("#Mensualite-text").textContent = mensualite.value
     }
 </script>
