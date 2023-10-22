@@ -71,7 +71,7 @@ public class CreditServlet extends HttpServlet {
         credit.setMontant(Double.parseDouble(session.getAttribute("montant").toString()));
         credit.setClient((Client) session.getAttribute("client"));
         credit.setAgence((Agence) session.getAttribute("agence"));
-        credit.setRemarques("lsdkjksljd qslkjdlkqjsd qsdlkqjsdkljqsd qsldkjqlksjd dqlksjdklqsd");
+        credit.setRemarques((String) session.getAttribute("remarque"));
         Optional<DemandeDeCredit> demandeDeCredit = simulationService.addDemande(credit);
         if (demandeDeCredit.isPresent()) {
             message = "La demande de credit de " + demandeDeCredit.get().getClient().getFirstName() + " " + demandeDeCredit.get().getClient().getLastName() + "est ajoute";
@@ -112,9 +112,9 @@ public class CreditServlet extends HttpServlet {
         session.removeAttribute("type");
         req.setAttribute("listCredit", demandeDeCredits);
         req.setAttribute("CreditEtat", CreditEtat.values());
-        if (message != null) {
-            session.setAttribute("message", message);
-        }
+        //if (message != null) {
+         //   session.setAttribute("message", message);
+        //}
         req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
     }
 
@@ -178,6 +178,7 @@ public class CreditServlet extends HttpServlet {
 
         }
         session.setAttribute("client", client);
+        session.setAttribute("remarque", req.getParameter("remarque"));
         req.setAttribute("client", client);
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
     }

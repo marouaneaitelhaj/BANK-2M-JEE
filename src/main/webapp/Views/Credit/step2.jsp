@@ -74,12 +74,9 @@
         <div class="w-full border reounded p-2 flex">
             <form id="searchForm" action="/credit/create/step2" method="get" class="px-3 w-3/4">
             <label for="clientSearch" class="block text-sm font-medium text-gray-700">Search for Client</label>
-                <input type="text" id="clientSearch" name="clientSearch" value="${clientSearch}"
+                <input type="search" id="clientSearch" name="clientSearch" value="${clientSearch}"
                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-            <button
-                    class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                Search
-            </button>
+                <button type="submit" hidden="hidden">search</button>
             </form>
             <div class="w-3/4 px-3">
                 <label for="client" class="block text-sm font-medium text-gray-700">Select Client</label>
@@ -94,12 +91,9 @@
         <div class="w-full border reounded p-2 flex">
             <div class="w-3/4 px-3">
                 <label for="agenceSearch" class="block text-sm font-medium text-gray-700">Search for Agence</label>
-                <input type="text" id="agenceSearch" name="agenceSearch" form="searchForm" value="${agenceSearch}"
+                <input type="search" id="agenceSearch" name="agenceSearch" form="searchForm" value="${agenceSearch}"
                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
-                <button form="searchForm"
-                        class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                    Search
-                </button>
+                <button type="submit" hidden="hidden">search</button>
             </div>
             <form method="post" action="/credit/create/step3" id="myform" class="w-3/4 px-3">
                 <label for="agence" class="block text-sm font-medium text-gray-700">Select Agence</label>
@@ -109,8 +103,11 @@
                         <option value="${agence.code}">${agence.nom}</option>
                     </c:forEach>
                 </select>
-
             </form>
+        </div>
+        <div class="w-full border reounded p-2 flex">
+            <input name="remarque" form="myform"
+                      class="p-2 border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
         </div>
         <button form="myform"
                 class="border mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
