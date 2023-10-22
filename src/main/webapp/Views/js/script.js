@@ -62,3 +62,14 @@ function populateUpdate(code, firstName, lastName, birthDate, mobile, address) {
     document.getElementById('updateAddress').value = address;
     updateForm.classList.remove('hidden');
 }
+function populate_Update(matricule, firstName, lastName, birthDate, mobile, recruitmentDate, email) {
+    const updateForm = document.getElementById('updateForm');
+    document.getElementById('updateMatricule').value = matricule;
+    document.getElementById('updateFirstName').value = firstName;
+    document.getElementById('updateLastName').value = lastName;
+    document.getElementById('updateBirthDate').value = birthDate;
+    document.getElementById('updateMobile').value = mobile;
+    document.getElementById('updateRecruitmentDate').value = recruitmentDate;
+    document.getElementById('updateEmail').value = email;
+    updateForm.classList.remove('hidden');
+}

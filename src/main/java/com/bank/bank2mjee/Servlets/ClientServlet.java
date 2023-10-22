@@ -13,6 +13,7 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,6 @@ public class ClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         switch (request.getRequestURI()) {
             case "/clients":
-                getClients(request, response);
-                break;
-            case "/client":
                 getClients(request, response);
                 break;
             default:
@@ -85,9 +83,23 @@ public class ClientServlet extends HttpServlet {
     protected void getClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
         Optional<Client> optionalClient = clientService.getClient(code);
-        if (optionalClient.isPresent())
-            request.setAttribute("client", optionalClient.get());
-        request.getRequestDispatcher("/Views/Client/client.jsp").forward(request, response);
+        List<Client> clients = new ArrayList<>();
+        String message = null;
+        String type = null;
+        if (optionalClient.isPresent()) {
+            clients.add(optionalClient.get());
+            request.setAttribute("clients", clients);
+            request.setAttribute("employeesCurrent", true);
+            request.getRequestDispatcher("/Views/Client/client.jsp").forward(request, response);
+        } else {
+            message = "Not Found";
+            type = "red";
+            HttpSession session = request.getSession();
+            session.setAttribute("message", message);
+            session.setAttribute("type", type);
+            session.setMaxInactiveInterval(1);
+            response.sendRedirect("/clients");
+        }
     }
 
     protected void getClients(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
