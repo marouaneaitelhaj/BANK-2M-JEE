@@ -63,8 +63,8 @@ public class DemandeDeCreditDaoImpl implements DemandeDeCreditDao {
         try {
             Query<DemandeDeCredit> query;
             session.beginTransaction();
-            if (filter == "date") {
-                query = session.createQuery("from DemandeDeCredit order by date", DemandeDeCredit.class);
+            if ("date".equals(filter)) {
+                query = session.createQuery("from DemandeDeCredit order by creationDate", DemandeDeCredit.class);
             } else {
                 query = session.createQuery("from DemandeDeCredit order by creditEtat", DemandeDeCredit.class);
             }

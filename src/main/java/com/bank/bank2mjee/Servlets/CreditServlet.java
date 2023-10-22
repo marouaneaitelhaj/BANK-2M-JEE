@@ -66,7 +66,7 @@ public class CreditServlet extends HttpServlet {
         HttpSession session = req.getSession();
         DemandeDeCredit credit = new DemandeDeCredit();
         credit.setCreditEtat(CreditEtat.EN_ATTENTE);
-        credit.setDate(LocalDate.now());
+        credit.setCreationDate(LocalDate.now());
         credit.setDuree(Integer.parseInt(session.getAttribute("duree").toString()));
         credit.setMontant(Double.parseDouble(session.getAttribute("montant").toString()));
         credit.setClient((Client) session.getAttribute("client"));
@@ -104,9 +104,12 @@ public class CreditServlet extends HttpServlet {
         String type = (session.getAttribute("type") != null) ? (String) session.getAttribute("type") : null;
         String filter = (req.getParameter("filter") != null) ? req.getParameter("filter") : null;
         List<DemandeDeCredit> demandeDeCredits = simulationService.findAll(filter);
-        System.out.println(message);
         session.setAttribute("message", message);
         session.setAttribute("type", type);
+        req.setAttribute("message", message);
+        req.setAttribute("type", type);
+        session.removeAttribute("message");
+        session.removeAttribute("type");
         req.setAttribute("listCredit", demandeDeCredits);
         req.setAttribute("CreditEtat", CreditEtat.values());
         if (message != null) {
@@ -126,22 +129,26 @@ public class CreditServlet extends HttpServlet {
         String travail = (req.getParameter("travail") != null) ? req.getParameter("travail") : session.getAttribute("travail").toString();
         String montant = (req.getParameter("montant") != null) ? req.getParameter("montant") : session.getAttribute("montant").toString();
         String duree = (req.getParameter("duree") != null) ? req.getParameter("duree") : session.getAttribute("duree").toString();
+        String clientSearch = (req.getParameter("clientSearch") != null) ? req.getParameter("clientSearch") : null;
+        String agenceSearch = (req.getParameter("agenceSearch") != null) ? req.getParameter("agenceSearch") : null;
         if (mensualite == null || mensualite.equals("0.00")) {
             resp.sendRedirect("/credit/create");
             return;
         }
         List<Client> clientList;
-        if (req.getParameter("clientSearch") != null) {
-            clientList = simulationService.findAllClientByText(req.getParameter("clientSearch"));
+        if (clientSearch != null) {
+            clientList = simulationService.findAllClientByText(clientSearch);
         } else {
             clientList = simulationService.findAllClient();
         }
         List<Agence> agenceList;
-        if (req.getParameter("agenceSearch") != null) {
-            agenceList = simulationService.findAllAgenceByText(req.getParameter("clientSearch"));
+        if (agenceSearch != null) {
+            agenceList = simulationService.findAllAgenceByText(agenceSearch);
         } else {
             agenceList = simulationService.findAllAgence();
         }
+        req.setAttribute("clientSearch", clientSearch);
+        req.setAttribute("agenceSearch", agenceSearch);
         req.setAttribute("clients", clientList);
         req.setAttribute("agences", agenceList);
         req.setAttribute("step", 2);
