@@ -37,7 +37,9 @@ public class AgenceDaoImpl implements AgenceDao {
             session.beginTransaction();
             Query<Agence> query = session.createQuery("from Agence where code like :text OR nom like :text OR adresse like :text OR numero like :text", Agence.class);
             query.setParameter("text", "%" + text + "%");
+            System.out.println(text);
             List<Agence> agences = query.list();
+            System.out.println(agences);
             session.getTransaction().commit();
             return agences;
         } catch (Exception e) {

@@ -28,7 +28,7 @@ public class DemandeDeCredit {
     private Agence agence;
 
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDate creationDate;
 
     @Column(name = "dateUpdate")
     private LocalDate dateUpdate;

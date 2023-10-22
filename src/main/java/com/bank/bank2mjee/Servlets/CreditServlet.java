@@ -66,12 +66,12 @@ public class CreditServlet extends HttpServlet {
         HttpSession session = req.getSession();
         DemandeDeCredit credit = new DemandeDeCredit();
         credit.setCreditEtat(CreditEtat.EN_ATTENTE);
-        credit.setDate(LocalDate.now());
+        credit.setCreationDate(LocalDate.now());
         credit.setDuree(Integer.parseInt(session.getAttribute("duree").toString()));
         credit.setMontant(Double.parseDouble(session.getAttribute("montant").toString()));
         credit.setClient((Client) session.getAttribute("client"));
         credit.setAgence((Agence) session.getAttribute("agence"));
-        credit.setRemarques("lsdkjksljd qslkjdlkqjsd qsdlkqjsdkljqsd qsldkjqlksjd dqlksjdklqsd");
+        credit.setRemarques((String) session.getAttribute("remarque"));
         Optional<DemandeDeCredit> demandeDeCredit = simulationService.addDemande(credit);
         if (demandeDeCredit.isPresent()) {
             message = "La demande de credit de " + demandeDeCredit.get().getClient().getFirstName() + " " + demandeDeCredit.get().getClient().getLastName() + "est ajoute";
@@ -104,14 +104,17 @@ public class CreditServlet extends HttpServlet {
         String type = (session.getAttribute("type") != null) ? (String) session.getAttribute("type") : null;
         String filter = (req.getParameter("filter") != null) ? req.getParameter("filter") : null;
         List<DemandeDeCredit> demandeDeCredits = simulationService.findAll(filter);
-        System.out.println(message);
         session.setAttribute("message", message);
         session.setAttribute("type", type);
+        req.setAttribute("message", message);
+        req.setAttribute("type", type);
+        session.removeAttribute("message");
+        session.removeAttribute("type");
         req.setAttribute("listCredit", demandeDeCredits);
         req.setAttribute("CreditEtat", CreditEtat.values());
-        if (message != null) {
-            session.setAttribute("message", message);
-        }
+        //if (message != null) {
+         //   session.setAttribute("message", message);
+        //}
         req.getRequestDispatcher("/Views/Credit/creditList.jsp").forward(req, resp);
     }
 
@@ -126,22 +129,26 @@ public class CreditServlet extends HttpServlet {
         String travail = (req.getParameter("travail") != null) ? req.getParameter("travail") : session.getAttribute("travail").toString();
         String montant = (req.getParameter("montant") != null) ? req.getParameter("montant") : session.getAttribute("montant").toString();
         String duree = (req.getParameter("duree") != null) ? req.getParameter("duree") : session.getAttribute("duree").toString();
+        String clientSearch = (req.getParameter("clientSearch") != null) ? req.getParameter("clientSearch") : null;
+        String agenceSearch = (req.getParameter("agenceSearch") != null) ? req.getParameter("agenceSearch") : null;
         if (mensualite == null || mensualite.equals("0.00")) {
             resp.sendRedirect("/credit/create");
             return;
         }
         List<Client> clientList;
-        if (req.getParameter("clientSearch") != null) {
-            clientList = simulationService.findAllClientByText(req.getParameter("clientSearch"));
+        if (clientSearch != null) {
+            clientList = simulationService.findAllClientByText(clientSearch);
         } else {
             clientList = simulationService.findAllClient();
         }
         List<Agence> agenceList;
-        if (req.getParameter("agenceSearch") != null) {
-            agenceList = simulationService.findAllAgenceByText(req.getParameter("clientSearch"));
+        if (agenceSearch != null) {
+            agenceList = simulationService.findAllAgenceByText(agenceSearch);
         } else {
             agenceList = simulationService.findAllAgence();
         }
+        req.setAttribute("clientSearch", clientSearch);
+        req.setAttribute("agenceSearch", agenceSearch);
         req.setAttribute("clients", clientList);
         req.setAttribute("agences", agenceList);
         req.setAttribute("step", 2);
@@ -171,6 +178,7 @@ public class CreditServlet extends HttpServlet {
 
         }
         session.setAttribute("client", client);
+        session.setAttribute("remarque", req.getParameter("remarque"));
         req.setAttribute("client", client);
         req.getRequestDispatcher("/Views/Credit/simulation.jsp").forward(req, resp);
     }
