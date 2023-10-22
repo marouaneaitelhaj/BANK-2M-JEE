@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
     SessionFactory sessionFactory = SessionFactoryProvider.provideSessionFactory();
-//    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();;
+//    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     Session session = sessionFactory.openSession();
 
     @Override
@@ -78,7 +78,11 @@ public class ClientDaoImpl implements ClientDao {
             Client client = new Client();
             client = session.get(Client.class, s);
             session.getTransaction().commit();
-            return Optional.of(client);
+            if (client != null){
+                return Optional.of(client);
+            }else {
+                return Optional.empty();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

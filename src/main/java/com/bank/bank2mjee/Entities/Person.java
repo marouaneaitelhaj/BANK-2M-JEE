@@ -12,11 +12,11 @@ import java.time.LocalDate;
 @Table(name = "Person")
 public abstract class Person {
     @Column(name = "firstName")
-    private String firstName;
+    protected String firstName;
     @Column(name = "lastName")
-    private String lastName;
+    protected String lastName;
     @Column(name = "birthDate")
-    private LocalDate birthDate;
+    protected LocalDate birthDate;
     @Column(name = "mobile")
-    private String mobile;
+    protected String mobile;
 }

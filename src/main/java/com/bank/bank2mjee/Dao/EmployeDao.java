@@ -1,4 +1,6 @@
 package com.bank.bank2mjee.Dao;
 
-public interface EmployeDao {
+import com.bank.bank2mjee.Entities.Employe;
+
+public interface EmployeDao extends CrudRepo<Employe, String>{
 }
