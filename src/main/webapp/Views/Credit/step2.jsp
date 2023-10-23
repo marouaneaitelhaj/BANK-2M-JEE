@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="w-2/5 h-3/6	 bg-white mx-5 my-5">
+<div class="w-2/5 	 bg-white mx-5 my-5">
     <nav aria-label="Progress">
         <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
             <li class="relative md:flex md:flex-1">
