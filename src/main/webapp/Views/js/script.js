@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const alert = document.getElementById('alert');
     const closeAlert = document.getElementById('closeAlert');
 
-    openAddForm.addEventListener('click', function (){
+    openAddForm.addEventListener('click', function () {
         addForm.classList.remove('hidden');
     });
     addOverlay.addEventListener('click', function (event) {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             addForm.classList.add('hidden');
         }
     });
-    closeAddForm.addEventListener('click', function (){
+    closeAddForm.addEventListener('click', function () {
         addForm.classList.add('hidden');
     });
     deleteOverlay.addEventListener('click', function (event) {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('deleteForm').classList.add('hidden');
         }
     });
-    closeDeleteForm.addEventListener('click', function (){
+    closeDeleteForm.addEventListener('click', function () {
         document.getElementById('deleteForm').classList.add('hidden');
     });
 
@@ -35,16 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('updateForm').classList.add('hidden');
         }
     });
-    closeUpdateForm.addEventListener('click', function (){
+    closeUpdateForm.addEventListener('click', function () {
         document.getElementById('updateForm').classList.add('hidden');
     });
     if (alert) {
         setTimeout(function () {
             alert.style.display = 'none';
         }, 4000);
-    closeAlert.addEventListener('click', function () {
-        alert.classList.add('hidden');
-    });
+        closeAlert.addEventListener('click', function () {
+            alert.classList.add('hidden');
+        });
     }
 });
 function populateDelete(code) {
@@ -60,5 +60,16 @@ function populateUpdate(code, firstName, lastName, birthDate, mobile, address) {
     document.getElementById('updateBirthDate').value = birthDate;
     document.getElementById('updateMobile').value = mobile;
     document.getElementById('updateAddress').value = address;
+    updateForm.classList.remove('hidden');
+}
+function populate_Update(matricule, firstName, lastName, birthDate, mobile, recruitmentDate, email) {
+    const updateForm = document.getElementById('updateForm');
+    document.getElementById('updateMatricule').value = matricule;
+    document.getElementById('updateFirstName').value = firstName;
+    document.getElementById('updateLastName').value = lastName;
+    document.getElementById('updateBirthDate').value = birthDate;
+    document.getElementById('updateMobile').value = mobile;
+    document.getElementById('updateRecruitmentDate').value = recruitmentDate;
+    document.getElementById('updateEmail').value = email;
     updateForm.classList.remove('hidden');
 }

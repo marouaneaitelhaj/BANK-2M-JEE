@@ -13,5 +13,6 @@
         <mapping class="com.bank.bank2mjee.Entities.Client"></mapping>
         <mapping class="com.bank.bank2mjee.Entities.Agence"></mapping>
         <mapping class="com.bank.bank2mjee.Entities.DemandeDeCredit"></mapping>
+        <mapping class="com.bank.bank2mjee.Entities.Employe"></mapping>
     </session-factory>
 </hibernate-configuration>
