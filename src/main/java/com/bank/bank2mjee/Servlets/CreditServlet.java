@@ -11,6 +11,7 @@ import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Entities.DemandeDeCredit;
 import com.bank.bank2mjee.Enums.CreditEtat;
 import com.bank.bank2mjee.Services.SimulationService;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,8 +30,12 @@ public class CreditServlet extends HttpServlet {
     ClientDao clientDao = new ClientDaoImpl();
     DemandeDeCreditDao demandeDeCreditDao = new DemandeDeCreditDaoImpl();
     SimulationService simulationService = new SimulationService(clientDao, agenceDao, demandeDeCreditDao);
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("simulationwCurrent", true);
         switch (req.getRequestURI()) {
             case "/credit/create":
                 this.step1(req, resp);
@@ -69,6 +74,8 @@ public class CreditServlet extends HttpServlet {
         credit.setCreationDate(LocalDate.now());
         credit.setDuree(Integer.parseInt(session.getAttribute("duree").toString()));
         credit.setMontant(Double.parseDouble(session.getAttribute("montant").toString()));
+        // make calc again
+        System.out.println(session.getAttribute("mensualite") + "   "+ simulationService.createSimulation(Double.parseDouble(session.getAttribute("montant").toString()), Integer.parseInt(session.getAttribute("duree").toString())));
         credit.setClient((Client) session.getAttribute("client"));
         credit.setAgence((Agence) session.getAttribute("agence"));
         credit.setRemarques((String) session.getAttribute("remarque"));

@@ -103,7 +103,6 @@
                             </tr>
                         </c:forEach>
 
-                        <!-- More people... -->
                         </tbody>
                     </table>
                 </div>

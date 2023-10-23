@@ -17,6 +17,12 @@ public class SimulationService {
     AgenceDao agenceDao;
     DemandeDeCreditDao demandeDeCreditDao;
 
+    public double createSimulation(Double capitale,int nombremensualite) {
+        double tauxMensuel = DemandeDeCredit.TAUX / 12;
+        return (capitale * tauxMensuel * Math.pow(1 + tauxMensuel, nombremensualite))
+                / (Math.pow(1 + tauxMensuel, nombremensualite) - 1);
+    }
+
     public SimulationService(ClientDao clientDao, AgenceDao agenceDao,DemandeDeCreditDao demandeDeCreditDao) {
         this.clientDao = clientDao;
         this.agenceDao = agenceDao;
@@ -41,6 +47,8 @@ public class SimulationService {
     public List<Agence> findAllAgenceByText(String text) {
         return agenceDao.findByAtr(text);
     }
+
+
 
     public List<Client> findAllClientByText(String text) {
         return clientDao.findByAtr(text);

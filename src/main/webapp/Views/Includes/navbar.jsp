@@ -11,10 +11,10 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="http://localhost:8080/" class="${empty clientsCurrent && empty employeesCurrent && empty simulationwCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Home</a>
-                        <a href="clients" class="${clientsCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Clients</a>
-                        <a href="employees" class="${employeesCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Employees</a>
-                        <a href="credit/create" class="${simulationwCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Simulation</a>
+                        <a href="/" class="${empty clientsCurrent && empty employeesCurrent && empty simulationwCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="/clients" class="${clientsCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Clients</a>
+                        <a href="/employees" class="${employeesCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Employees</a>
+                        <a href="/credit/list" class="${simulationwCurrent ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} home rounded-md px-3 py-2 text-sm font-medium">Simulation</a>
                     </div>
                 </div>
             </div>
