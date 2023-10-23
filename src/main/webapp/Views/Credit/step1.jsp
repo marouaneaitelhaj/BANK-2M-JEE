@@ -3,11 +3,9 @@
     <nav aria-label="Progress">
         <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
             <li class="relative md:flex md:flex-1">
-                <!-- Completed Step -->
                 <a href="#" class="group flex w-full items-center">
         <span class="flex items-center px-6 py-4 text-sm font-medium">
           <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
-            <!-- Heroicon name: solid/check -->
             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                  aria-hidden="true">
               <path fill-rule="evenodd"
@@ -19,7 +17,6 @@
         </span>
                 </a>
 
-                <!-- Arrow separator for lg screens and up -->
                 <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
                     <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
                          preserveAspectRatio="none">
@@ -30,7 +27,6 @@
             </li>
 
             <li class="relative md:flex md:flex-1">
-                <!-- Current Step -->
                 <a href="#" class="flex items-center px-6 py-4 text-sm font-medium" aria-current="step">
         <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-indigo-600">
           <span class="text-indigo-600">02</span>
@@ -38,7 +34,6 @@
                     <span class="ml-4 text-sm font-medium text-indigo-600">Mes coordonnées</span>
                 </a>
 
-                <!-- Arrow separator for lg screens and up -->
                 <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
                     <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none"
                          preserveAspectRatio="none">
@@ -49,7 +44,6 @@
             </li>
 
             <li class="relative md:flex md:flex-1">
-                <!-- Upcoming Step -->
                 <a href="#" class="group flex items-center">
         <span class="flex items-center px-6 py-4 text-sm font-medium">
           <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
