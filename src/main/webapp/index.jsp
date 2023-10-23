@@ -110,7 +110,7 @@
                     </div>
                     <div class="relative -mr-40 pl-6 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
                         <img class="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none"
-                             src="https://tailwindui.com/img/component-images/task-app-rose.jpg" alt="">
+                             src="https://cdn.discordapp.com/attachments/1161000798650630235/1165975381799612446/Capture_decran_20231023_122942.png?ex=6548ce31&is=65365931&hm=afc5929575822e8f8538d8d6284b1e8b4844010694a49ca140cacc43a187afc2&" alt="">
                     </div>
                 </div>
             </div>
