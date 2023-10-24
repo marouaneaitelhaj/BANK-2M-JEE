@@ -38,10 +38,11 @@
     </div>
 </div>
 <jsp:include page="../Includes/footer.jsp" />
-</body>
-</html>
+<script src="<%= request.getContextPath()%>/Views/js/script.js"></script>
 <script>
     document.querySelector("#montant-text").textContent = 5000 + " DH"
     document.querySelector("#duree-text").textContent = 12 + " MOIS"
     calc()
 </script>
+</body>
+</html>
