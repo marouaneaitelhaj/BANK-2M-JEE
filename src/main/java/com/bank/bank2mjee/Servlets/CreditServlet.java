@@ -92,9 +92,13 @@ public class CreditServlet extends HttpServlet {
             resp.sendRedirect("/credit/create");
         }
     }
-    private void updateEtat(HttpServletRequest req, HttpServletResponse resp) {
+    private void updateEtat(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-
+        if (CreditEtat.valueOf(req.getParameter("creditEtat")) == CreditEtat.EN_ATTENTE){
+            session.setAttribute("message", "Please choose somthing else");
+            session.setAttribute("type", "red");
+            resp.sendRedirect("/credit/list");
+        }
         simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
             session.setAttribute("message", "La demande de credit est mettre a jour");
             session.setAttribute("type", "green");

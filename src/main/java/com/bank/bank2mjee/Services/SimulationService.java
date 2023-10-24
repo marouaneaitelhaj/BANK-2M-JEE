@@ -8,6 +8,7 @@ import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Entities.DemandeDeCredit;
 import com.bank.bank2mjee.Enums.CreditEtat;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,16 +18,27 @@ public class SimulationService {
     AgenceDao agenceDao;
     DemandeDeCreditDao demandeDeCreditDao;
 
-    public double createSimulation(Double capitale,int nombremensualite) {
+    public double createSimulation(Double capitale, int nombremensualite) {
         double tauxMensuel = DemandeDeCredit.TAUX / 12;
-        return (capitale * tauxMensuel * Math.pow(1 + tauxMensuel, nombremensualite))
+        double result = (capitale * tauxMensuel * Math.pow(1 + tauxMensuel, nombremensualite))
                 / (Math.pow(1 + tauxMensuel, nombremensualite) - 1);
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+        String formattedResult = decimalFormat.format(result);
+
+        double roundedResult = Double.parseDouble(formattedResult);
+
+        return roundedResult;
     }
+
 
     public SimulationService(ClientDao clientDao, AgenceDao agenceDao,DemandeDeCreditDao demandeDeCreditDao) {
         this.clientDao = clientDao;
         this.agenceDao = agenceDao;
         this.demandeDeCreditDao = demandeDeCreditDao;
+    }
+    public SimulationService() {
     }
     public Optional<DemandeDeCredit> addDemande(DemandeDeCredit demandeDeCredit){
         return demandeDeCreditDao.save(demandeDeCredit);
