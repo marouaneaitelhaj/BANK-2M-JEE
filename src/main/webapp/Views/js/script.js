@@ -9,35 +9,45 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeUpdateForm = document.getElementById('closeUpdateForm');
     const alert = document.getElementById('alert');
     const closeAlert = document.getElementById('closeAlert');
+    const deleteForm = document.getElementById('deleteForm');
+    const updateForm = document.getElementById('updateForm');
 
-    openAddForm.addEventListener('click', function () {
-        addForm.classList.remove('hidden');
-    });
-    addOverlay.addEventListener('click', function (event) {
-        if (event.target === addOverlay) {
+    if (addForm) {
+
+        openAddForm.addEventListener('click', function () {
+            addForm.classList.remove('hidden');
+        });
+        addOverlay.addEventListener('click', function (event) {
+            if (event.target === addOverlay) {
+                addForm.classList.add('hidden');
+            }
+        });
+        closeAddForm.addEventListener('click', function () {
             addForm.classList.add('hidden');
-        }
-    });
-    closeAddForm.addEventListener('click', function () {
-        addForm.classList.add('hidden');
-    });
-    deleteOverlay.addEventListener('click', function (event) {
-        if (event.target === deleteOverlay) {
-            document.getElementById('deleteForm').classList.add('hidden');
-        }
-    });
-    closeDeleteForm.addEventListener('click', function () {
-        document.getElementById('deleteForm').classList.add('hidden');
-    });
+        });
+    }
+    if (deleteForm) {
 
-    updateOverlay.addEventListener('click', function (event) {
-        if (event.target === updateOverlay) {
-            document.getElementById('updateForm').classList.add('hidden');
-        }
-    });
-    closeUpdateForm.addEventListener('click', function () {
-        document.getElementById('updateForm').classList.add('hidden');
-    });
+        deleteOverlay.addEventListener('click', function (event) {
+            if (event.target === deleteOverlay) {
+                deleteForm.classList.add('hidden');
+            }
+        });
+        closeDeleteForm.addEventListener('click', function () {
+            deleteForm.classList.add('hidden');
+        });
+    }
+    if (updateForm) {
+
+        updateOverlay.addEventListener('click', function (event) {
+            if (event.target === updateOverlay) {
+                updateForm.classList.add('hidden');
+            }
+        });
+        closeUpdateForm.addEventListener('click', function () {
+            updateForm.classList.add('hidden');
+        });
+    }
     if (alert) {
         setTimeout(function () {
             alert.style.display = 'none';
@@ -47,11 +57,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 function populateDelete(code) {
     const deleteForm = document.getElementById('deleteForm');
     document.getElementById('deleteCode').value = code;
     deleteForm.classList.remove('hidden');
 }
+
 function populateUpdate(code, firstName, lastName, birthDate, mobile, address) {
     const updateForm = document.getElementById('updateForm');
     document.getElementById('updateCode').value = code;
@@ -62,6 +74,7 @@ function populateUpdate(code, firstName, lastName, birthDate, mobile, address) {
     document.getElementById('updateAddress').value = address;
     updateForm.classList.remove('hidden');
 }
+
 function populate_Update(matricule, firstName, lastName, birthDate, mobile, recruitmentDate, email) {
     const updateForm = document.getElementById('updateForm');
     document.getElementById('updateMatricule').value = matricule;

@@ -117,3 +117,4 @@
     </div>
 </div>
 <jsp:include page="../Includes/footer.jsp"/>
+<script src="<%= request.getContextPath()%>/Views/js/script.js"></script>
