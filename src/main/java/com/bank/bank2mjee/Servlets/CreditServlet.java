@@ -106,8 +106,8 @@ public class CreditServlet extends HttpServlet {
             resp.sendRedirect("/credit/list");
         }
         DemandeDeCredit demandeDeCredit1 = new DemandeDeCredit();
-        demandeDeCredit1.setNumber(Long.valueOf(req.getParameter("creditEtat")));
-        demandeDeCredit1.setCreditEtat(CreditEtat.valueOf(req.getParameter("creditNumber")));
+        demandeDeCredit1.setNumber(Long.valueOf(req.getParameter("creditNumber")));
+        demandeDeCredit1.setCreditEtat(CreditEtat.valueOf(req.getParameter("creditEtat")));
         simulationService.updateEtat(demandeDeCredit1).ifPresent(demandeDeCredit -> {
             session.setAttribute("message", "La demande de credit est mettre a jour");
             session.setAttribute("type", "green");
