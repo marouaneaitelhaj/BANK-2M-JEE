@@ -18,6 +18,7 @@ public class ClientDaoImpl implements ClientDao {
 //    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     Session session = sessionFactory.openSession();
 
+
     @Override
     public Optional<Client> save(Client client) {
         try {

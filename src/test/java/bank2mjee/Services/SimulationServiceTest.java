@@ -1,5 +1,6 @@
 package bank2mjee.Services;
 
+import com.bank.bank2mjee.Dao.Impl.DemandeDeCreditDaoImpl;
 import com.bank.bank2mjee.Services.SimulationService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ public class SimulationServiceTest {
 
     @BeforeAll
     static void setUp() {
-        simulationService = new SimulationService();
+        simulationService = new SimulationService(new DemandeDeCreditDaoImpl());
     }
 
     @Test

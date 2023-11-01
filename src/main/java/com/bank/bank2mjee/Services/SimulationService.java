@@ -14,8 +14,6 @@ import java.util.Optional;
 
 public class SimulationService {
 
-    ClientDao clientDao;
-    AgenceDao agenceDao;
     DemandeDeCreditDao demandeDeCreditDao;
 
     public double createSimulation(Double capitale, int nombremensualite) {
@@ -33,50 +31,11 @@ public class SimulationService {
     }
 
 
-    public SimulationService(ClientDao clientDao, AgenceDao agenceDao,DemandeDeCreditDao demandeDeCreditDao) {
-        this.clientDao = clientDao;
-        this.agenceDao = agenceDao;
+    public SimulationService(DemandeDeCreditDao demandeDeCreditDao) {
         this.demandeDeCreditDao = demandeDeCreditDao;
-    }
-    public SimulationService() {
     }
     public Optional<DemandeDeCredit> addDemande(DemandeDeCredit demandeDeCredit){
         return demandeDeCreditDao.save(demandeDeCredit);
-    }
-
-    public Agence findOneAgence(String code) throws Exception {
-        Optional<Agence> agenceOptional = agenceDao.findOne(code);
-        if (agenceOptional.isPresent()) {
-            return agenceOptional.get();
-        }
-        throw new Exception("Agence not found");
-    }
-
-    public List<Agence> findAllAgence() {
-        return agenceDao.findAll();
-    }
-
-    public List<Agence> findAllAgenceByText(String text) {
-        return agenceDao.findByAtr(text);
-    }
-
-
-
-    public List<Client> findAllClientByText(String text) {
-        return clientDao.findByAtr(text);
-    }
-
-    public List<Client> findAllClient() {
-        return clientDao.findAll();
-    }
-
-    public Client findOne(String client) throws Exception {
-        Optional<Client> optionalClient = clientDao.findOne(client);
-        if (optionalClient.isPresent()) {
-            return clientDao.findOne(client).get();
-        }else {
-            throw new Exception("Client not found");
-        }
     }
 
     public List<DemandeDeCredit> findAll(String filter) {
@@ -87,10 +46,7 @@ public class SimulationService {
         }
     }
 
-    public Optional<DemandeDeCredit> updateEtat(String creditEtat, String creditNumber) {
-        DemandeDeCredit demandeDeCredit = new DemandeDeCredit();
-        demandeDeCredit.setNumber(Long.valueOf(creditNumber));
-        demandeDeCredit.setCreditEtat(CreditEtat.valueOf(creditEtat));
+    public Optional<DemandeDeCredit> updateEtat(DemandeDeCredit demandeDeCredit) {
         return demandeDeCreditDao.update(demandeDeCredit);
     }
 }
