@@ -10,6 +10,8 @@ import com.bank.bank2mjee.Entities.Agence;
 import com.bank.bank2mjee.Entities.Client;
 import com.bank.bank2mjee.Entities.DemandeDeCredit;
 import com.bank.bank2mjee.Enums.CreditEtat;
+import com.bank.bank2mjee.Services.AgenceService;
+import com.bank.bank2mjee.Services.ClientService;
 import com.bank.bank2mjee.Services.SimulationService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -29,7 +31,10 @@ public class CreditServlet extends HttpServlet {
     AgenceDao agenceDao = new AgenceDaoImpl();
     ClientDao clientDao = new ClientDaoImpl();
     DemandeDeCreditDao demandeDeCreditDao = new DemandeDeCreditDaoImpl();
-    SimulationService simulationService = new SimulationService(clientDao, agenceDao, demandeDeCreditDao);
+    SimulationService simulationService = new SimulationService(clientDao, demandeDeCreditDao);
+    ClientService clientService = new ClientService(clientDao);
+    AgenceService agenceService = new AgenceService(agenceDao);
+
 
 
 
@@ -47,7 +52,11 @@ public class CreditServlet extends HttpServlet {
                 this.step3(req, resp);
                 break;
             case "/credit/create/finish":
-                this.addDemande(req, resp);
+                try {
+                    this.addDemande(req, resp);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "/credit/list":
                 this.listCredit(req, resp);
@@ -65,7 +74,7 @@ public class CreditServlet extends HttpServlet {
 
 
     //////////////////////////// methods /////////////////
-    private void addDemande(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void addDemande(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String type = null;
         String message = null;
         HttpSession session = req.getSession();
@@ -99,7 +108,10 @@ public class CreditServlet extends HttpServlet {
             session.setAttribute("type", "red");
             resp.sendRedirect("/credit/list");
         }
-        simulationService.updateEtat(req.getParameter("creditEtat"), req.getParameter("creditNumber")).ifPresent(demandeDeCredit -> {
+        DemandeDeCredit demandeDeCredit1 = new DemandeDeCredit();
+        demandeDeCredit1.setCreditEtat(CreditEtat.valueOf(req.getParameter("creditEtat")));
+        demandeDeCredit1.setNumber(Long.parseLong(req.getParameter("creditNumber")));
+        simulationService.updateEtat(demandeDeCredit1).ifPresent(demandeDeCredit -> {
             session.setAttribute("message", "La demande de credit est mettre a jour");
             session.setAttribute("type", "green");
             try {
@@ -148,15 +160,15 @@ public class CreditServlet extends HttpServlet {
         }
         List<Client> clientList;
         if (clientSearch != null) {
-            clientList = simulationService.findAllClientByText(clientSearch);
+            clientList = clientService.findAllClientByText(clientSearch);
         } else {
-            clientList = simulationService.findAllClient();
+            clientList = clientService.findAllClient();
         }
         List<Agence> agenceList;
         if (agenceSearch != null) {
-            agenceList = simulationService.findAllAgenceByText(agenceSearch);
+            agenceList = agenceService.findAllAgenceByText(agenceSearch);
         } else {
-            agenceList = simulationService.findAllAgence();
+            agenceList = agenceService.findAllAgence();
         }
         req.setAttribute("clientSearch", clientSearch);
         req.setAttribute("agenceSearch", agenceSearch);
@@ -176,7 +188,7 @@ public class CreditServlet extends HttpServlet {
         session.setAttribute("client", req.getParameter("client"));
         Agence agence = new Agence();
         try {
-            agence = simulationService.findOneAgence(req.getParameter("agence"));
+            agence = agenceService.findOneAgence(req.getParameter("agence"));
             session.setAttribute("agence", agence);
         } catch (Exception ignored) {
 
@@ -184,7 +196,7 @@ public class CreditServlet extends HttpServlet {
         req.setAttribute("step", 3);
         Client client = new Client(req.getParameter("client"));
         try {
-            client = simulationService.findOne(req.getParameter("client"));
+            client = clientService.findOne(req.getParameter("client"));
         } catch (Exception e) {
 
         }

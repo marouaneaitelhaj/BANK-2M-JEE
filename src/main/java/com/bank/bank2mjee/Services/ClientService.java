@@ -35,4 +35,20 @@ public class ClientService {
     public List<Client> getClients() {
         return clientDao.findAll();
     }
+    public Client findOne(String client) throws Exception {
+        Optional<Client> optionalClient = clientDao.findOne(client);
+        if (optionalClient.isPresent()) {
+            return clientDao.findOne(client).get();
+        }else {
+            throw new Exception("Client not found");
+        }
+    }
+
+    public List<Client> findAllClientByText(String text) {
+        return clientDao.findByAtr(text);
+    }
+
+    public List<Client> findAllClient() {
+        return clientDao.findAll();
+    }
 }

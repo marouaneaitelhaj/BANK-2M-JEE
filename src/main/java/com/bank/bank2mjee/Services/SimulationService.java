@@ -18,7 +18,17 @@ public class SimulationService {
     AgenceDao agenceDao;
     DemandeDeCreditDao demandeDeCreditDao;
 
-    public double createSimulation(Double capitale, int nombremensualite) {
+    public SimulationService(DemandeDeCreditDao demandeDeCreditDao) {
+        this.demandeDeCreditDao = demandeDeCreditDao;
+    }
+
+    public double createSimulation(Double capitale, int nombremensualite) throws Exception {
+        if (capitale < 5000 || capitale > 600000) {
+            throw new Exception("La capital doit etre entre 5000 et 600000");
+        }
+        if (nombremensualite < 12 || nombremensualite > 120 ) {
+            throw new Exception("Le nombre de mensualite doit etre entre 12 et 60");
+        }
         double tauxMensuel = DemandeDeCredit.TAUX / 12;
         double result = (capitale * tauxMensuel * Math.pow(1 + tauxMensuel, nombremensualite))
                 / (Math.pow(1 + tauxMensuel, nombremensualite) - 1);
@@ -33,9 +43,8 @@ public class SimulationService {
     }
 
 
-    public SimulationService(ClientDao clientDao, AgenceDao agenceDao,DemandeDeCreditDao demandeDeCreditDao) {
+    public SimulationService(ClientDao clientDao,DemandeDeCreditDao demandeDeCreditDao) {
         this.clientDao = clientDao;
-        this.agenceDao = agenceDao;
         this.demandeDeCreditDao = demandeDeCreditDao;
     }
     public SimulationService() {
@@ -44,40 +53,12 @@ public class SimulationService {
         return demandeDeCreditDao.save(demandeDeCredit);
     }
 
-    public Agence findOneAgence(String code) throws Exception {
-        Optional<Agence> agenceOptional = agenceDao.findOne(code);
-        if (agenceOptional.isPresent()) {
-            return agenceOptional.get();
-        }
-        throw new Exception("Agence not found");
-    }
-
-    public List<Agence> findAllAgence() {
-        return agenceDao.findAll();
-    }
-
-    public List<Agence> findAllAgenceByText(String text) {
-        return agenceDao.findByAtr(text);
-    }
 
 
 
-    public List<Client> findAllClientByText(String text) {
-        return clientDao.findByAtr(text);
-    }
 
-    public List<Client> findAllClient() {
-        return clientDao.findAll();
-    }
 
-    public Client findOne(String client) throws Exception {
-        Optional<Client> optionalClient = clientDao.findOne(client);
-        if (optionalClient.isPresent()) {
-            return clientDao.findOne(client).get();
-        }else {
-            throw new Exception("Client not found");
-        }
-    }
+
 
     public List<DemandeDeCredit> findAll(String filter) {
         if (filter == null) {
@@ -87,10 +68,7 @@ public class SimulationService {
         }
     }
 
-    public Optional<DemandeDeCredit> updateEtat(String creditEtat, String creditNumber) {
-        DemandeDeCredit demandeDeCredit = new DemandeDeCredit();
-        demandeDeCredit.setNumber(Long.valueOf(creditNumber));
-        demandeDeCredit.setCreditEtat(CreditEtat.valueOf(creditEtat));
+    public Optional<DemandeDeCredit> updateEtat(DemandeDeCredit demandeDeCredit) {
         return demandeDeCreditDao.update(demandeDeCredit);
     }
 }
